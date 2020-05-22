@@ -1,0 +1,115 @@
+{
+  "typeName": "CDK::Cloud9::Environment",
+  "description": "An example resource schema demonstrating some basic constructs and validation rules.",
+  "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+  "definitions": {
+    "String": { "type": "string" },
+    "PolicyStatement": {
+      "type": "object",
+      "properties": {
+        "Effect": {"type": "string"},
+        "Action": {"type": "array", "items": {"type": "string" }},
+        "Resource": {"type": "array", "items": {"type": "string" }}
+      }
+    },
+    "PolicyDocument": {
+      "type": "object",
+      "properties": {
+        "Version": {"type": "string"},
+        "Statement": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/PolicyStatement" }
+        }
+      }
+    },
+    "Cloud9InstancePolicy": {
+      "$comment": "Policy to apply to Cloud9 Instance",
+      "type": "object",
+      "properties": {
+        "PolicyName": {"type": "string"},
+        "PolicyDocument": { "$ref": "#/definitions/PolicyDocument" }
+      }
+    }
+  },
+  "properties": {
+    "InstanceId": {
+      "description": "EC2 Instance Id used by the underlying EC2 instance.",
+      "type": "string",
+      "pattern": "^i-[a-z0-9]{17}$"
+    },
+    "Name": {
+      "description": "The name to give to the Cloud9 Environment.",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 50
+    },
+    "InstanceType": {
+      "description": "The EC2 instance type to use.",
+      "type": "string",
+      "pattern": "^[a-z][1-9][.][a-z0-9]+$"
+    },
+    "Description": {
+      "description": "The description of the TPS report is an optional element.",
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 250
+    },
+    "EBSVolumeSize": {
+      "description": "The size for the underlying EBS Volume.",
+      "type": "integer",
+      "minimum": 10,
+      "maximum": 250
+    },
+    "EnvironmentId": {
+      "description": "Cloud9 Environment Id",
+      "type": "string"
+    },
+    "OwnerArn": {
+      "description": "Owner of the Cloud9 Environment. If not specified, it will be the root of the account.",
+      "type": "string",
+      "pattern": "^arn:aws:(iam|sts)::\\d+:(root|(user\\/[\\w+=/:,.@-]{1,64}|federated-user\\/[\\w+=/:,.@-]{2,32}|assumed-role\\/[\\w+=:,.@-]{1,64}\\/[\\w+=,.@-]{1,64}))$"
+    },
+    "Cloud9InstancePolicy": {
+      "description": "Inline Policy to provide fine-grained IAM access control to the Cloud9 instance",
+      "$ref": "#/definitions/Cloud9InstancePolicy"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+      "InstanceType"
+  ],
+  "readOnlyProperties": [
+      "/properties/InstanceId",
+      "/properties/EnvironmentId"
+  ],
+  "primaryIdentifier": [
+      "/properties/EnvironmentId"
+  ],
+  "handlers": {
+      "create": {
+          "permissions": [
+              "*"
+          ]
+      },
+      "read": {
+          "permissions": [
+              "*"
+          ]
+      },
+      "update": {
+          "permissions": [
+              "*"
+          ]
+      },
+      "delete": {
+          "permissions": [
+              "*"
+          ]
+      },
+      "list": {
+          "permissions": [
+              "*"
+          ]
+      }
+  }
+}

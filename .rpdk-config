@@ -1,0 +1,10 @@
+{
+    "typeName": "CDK::Cloud9::Environment",
+    "language": "python37",
+    "runtime": "python3.7",
+    "entrypoint": "cdk_cloud9_environment.handlers.resource",
+    "testEntrypoint": "cdk_cloud9_environment.handlers.test_entrypoint",
+    "settings": {
+        "use_docker": true
+    }
+}

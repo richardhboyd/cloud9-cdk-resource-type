@@ -1,0 +1,19 @@
+{
+    "desiredResourceState": {
+      "InstanceType": "c5.large",
+      "EBSVolumeSize": "50",
+      "OwnerArn": "arn:aws:sts::072954315904:assumed-role/CrossAccountRole-Isengard/rhboyd-Isengard",
+      "Cloud9InstancePolicy": {
+        "PolicyName": "MyInstancePolicy",
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement":[{
+            "Effect": "Allow",
+            "Action":["*"],
+            "Resource": ["*"]
+          }]
+        }
+      }
+    },
+    "logicalResourceIdentifier": "shortUserData008"
+}
